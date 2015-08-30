@@ -1,6 +1,7 @@
 package com.wechatbuddy.wechatbuddy;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.util.Log;
 
 import com.google.zxing.BarcodeFormat;
@@ -13,25 +14,18 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
-import com.google.zxing.qrcode.QRCodeWriter;
 
 /**
  * Created by Kenneth on 8/29/2015.
  */
-public class QRCodeRegenerator extends  Object{
+
+public class QRCodeRegenerator extends Object {
     private Bitmap image = null;          //UIImage *image
-    private String data = null;            //NSString *data
+    private String data = null;           //NSString *data
 
     public QRCodeRegenerator(){
         super();
     }
-
-    /*
-    image = BitmapFactory.decodeFile("/path/images/image.jpg");
-    ByteArrayOutputStream blob = new ByteArrayOutputStream();
-    bitmap.compress(CompressFormat.PNG, 0, blob);
-    byte[] bitmapdata = blob.toByteArray();
-    */
 
     public Bitmap regenerateQRCodeWithBitmap(Bitmap inputIMG) {
         this.image = inputIMG;
@@ -55,24 +49,46 @@ public class QRCodeRegenerator extends  Object{
             Result result = reader.decode(bitmap);
             this.data = result.getText();
         }
-        catch(ReaderException e) {
-            Log.e("DecodingImageERROR", e.getMessage());
+        catch(Exception e) {
+
+            return;
         }
+
     }
 
     private void encodeQRCode() {
 
-        if(this.data != null) {
+        if(this.data == null) {
             this.image = null;
             return;
         }
-        QRCodeWriter writer = new QRCodeWriter();
+        WBQRCodeWriter writer = new WBQRCodeWriter();
         try {
             BitMatrix matrix = writer.encode(this.data, BarcodeFormat.QR_CODE, 116, 116);
+            this.image = toBitmap(matrix);
+
         }
+        // TODO: exception handling
         catch (WriterException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Writes the given Matrix on a new Bitmap object.
+     * @param matrix the matrix to write.
+     * @return the new {@link Bitmap}-object.
+     */
+    private Bitmap toBitmap(BitMatrix matrix){
+        int height = matrix.getHeight();
+        int width = matrix.getWidth();
+        Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+        for (int x = 0; x < width; x++){
+            for (int y = 0; y < height; y++){
+                bmp.setPixel(x, y, matrix.get(x,y) ? Color.BLACK : Color.WHITE);
+            }
+        }
+        return bmp;
     }
 
 }
