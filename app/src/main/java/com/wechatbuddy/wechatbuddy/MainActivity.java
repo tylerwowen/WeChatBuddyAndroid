@@ -2,6 +2,7 @@
 
 package com.wechatbuddy.wechatbuddy;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +11,7 @@ import android.widget.Toast;
 
 import com.getpebble.android.kit.PebbleKit;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

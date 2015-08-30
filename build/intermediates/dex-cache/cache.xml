@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/weimin/Developer/WeChatBuddyAndroid/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="/Users/weimin/Developer/WeChatBuddyAndroid/app/build/intermediates/pre-dexed/debug/classes-0bfafa5af215c3f46213d0f14d4717de1107a1bc.jar" />
+    </item>
+    <item
+        jar="/Users/weimin/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="/Users/weimin/Developer/WeChatBuddyAndroid/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.1-c07c733d11222b94f59e220fbcd0ed534aeb6aa2.jar" />
+    </item>
+    <item
+        jar="/Users/weimin/Developer/WeChatBuddyAndroid/app/build/intermediates/exploded-aar/com.getpebble/pebblekit/3.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="bd72bf60a6e56573eecb0e6abf419fac2b1fc1e6">
+        <dex dex="/Users/weimin/Developer/WeChatBuddyAndroid/app/build/intermediates/pre-dexed/debug/classes-575c2d765e44c91372b0b89d0fa9a0eede62624e.jar" />
+    </item>
+    <item
+        jar="/Users/weimin/Developer/WeChatBuddyAndroid/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="/Users/weimin/Developer/WeChatBuddyAndroid/app/build/intermediates/pre-dexed/debug/classes-fe7599e72e35da26ed350c5d9863528a7c83299c.jar" />
+    </item>
+    <item
+        jar="/Users/weimin/Developer/WeChatBuddyAndroid/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="/Users/weimin/Developer/WeChatBuddyAndroid/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.1-d80fad131c1956c29eda0177c61ffad04ff43e4b.jar" />
+    </item>
+
+</items>
