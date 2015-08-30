@@ -75,17 +75,6 @@ $RECYCLE.BIN/
 # Android Studio
 *.iml
 .idea
-#.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
-
-# User-specific configurations
-.idea/libraries/
 .idea/workspace.xml
+.idea/libraries/*.xml
 .idea/tasks.xml
-.idea/.name
-.idea/compiler.xml
-.idea/copyright/profiles_settings.xml
-.idea/encodings.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/scopes/scope_settings.xml
-.idea/vcs.xml
