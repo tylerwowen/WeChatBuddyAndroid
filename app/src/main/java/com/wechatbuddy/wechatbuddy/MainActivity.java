@@ -1,3 +1,5 @@
+//Author: Kenneth Chan
+
 package com.wechatbuddy.wechatbuddy;
 
 import android.support.v7.app.AppCompatActivity;
