@@ -74,7 +74,6 @@ $RECYCLE.BIN/
 
 # Android Studio
 *.iml
-.idea
 .idea/workspace.xml
 .idea/libraries/*.xml
 .idea/tasks.xml
