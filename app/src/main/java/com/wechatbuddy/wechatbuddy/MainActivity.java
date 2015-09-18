@@ -21,11 +21,21 @@ import com.getpebble.android.kit.PebbleKit;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements PebbleImageTransmitterDelegate{
 
     private final int SELECT_PHOTO = 1;
     private ImageView imageView;
     private Bitmap QRCode;
+
+
+
+    public void willStartTransmitting(){}
+
+    public void didTransmitNumberOfPackges(int numberOfPackages, int total){}
+
+    public void didFailTransmitting(){}
+
+    public void didFinishTransmitting(){}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +73,11 @@ public class MainActivity extends Activity {
         }
         this.processImage();
         imageView.setImageBitmap(this.QRCode);
+        //PIT pit = new pit()
+        //pit.sendBtP(this.QRCode);
+        //pit.getResult();
+        //
+
     }
 
     @Override

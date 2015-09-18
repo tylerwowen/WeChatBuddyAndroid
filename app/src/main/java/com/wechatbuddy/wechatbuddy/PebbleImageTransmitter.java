@@ -5,4 +5,31 @@ package com.wechatbuddy.wechatbuddy;
  */
 public class PebbleImageTransmitter {
 
+//    public PebbleImageTransmitterDelegate delegate;
+//
+//
+//    public void foo(){
+//        delegate.didFailTransmitting();
+//    }
+    /*
+    public void sendB2P(Bitmap b){
+        makeSmallPackages();
+        sendPackages();
+
+    }
+
+    public void makeSmallPackages(){
+
+
+    }
+
+    public void sendPackages(){
+
+
+    }
+
+
+
+    */
 }
+
