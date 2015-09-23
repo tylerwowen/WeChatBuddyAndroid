@@ -29,7 +29,9 @@ public class MainActivity extends Activity implements PebbleImageTransmitterDele
 
 
 
-    public void willStartTransmitting(){}
+    public void willStartTransmitting(){
+        Toast.makeText(this, "delegate works", Toast.LENGTH_SHORT).show();
+    }
 
     public void didTransmitNumberOfPackges(int numberOfPackages, int total){}
 
@@ -77,6 +79,10 @@ public class MainActivity extends Activity implements PebbleImageTransmitterDele
         //pit.sendBtP(this.QRCode);
         //pit.getResult();
         //
+        PebbleImageTransmitter pit = new PebbleImageTransmitter(this.QRCode);
+
+        pit.setDelegate(this);
+        pit.sendBitmaptoPebble();
 
     }
 
