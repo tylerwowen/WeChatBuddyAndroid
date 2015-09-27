@@ -1,31 +1,27 @@
+//
+//  QRCodeRegenerator.java
+//  WeChatBuddy
+//
+//  Created by Tyler O on 8/29/15.
+//  C
 package com.wechatbuddy.wechatbuddy;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.util.Log;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.LuminanceSource;
 import com.google.zxing.RGBLuminanceSource;
-import com.google.zxing.ReaderException;
 import com.google.zxing.Result;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 
-/**
- * Created by Kenneth on 8/29/2015.
- */
-
-public class QRCodeRegenerator extends Object {
+public class QRCodeRegenerator {
     private Bitmap image = null;          //UIImage *image
     private String data = null;           //NSString *data
-
-    public QRCodeRegenerator(){
-        super();
-    }
 
     public Bitmap regenerateQRCodeWithBitmap(Bitmap inputIMG) {
         this.image = inputIMG;
@@ -50,10 +46,8 @@ public class QRCodeRegenerator extends Object {
             this.data = result.getText();
         }
         catch(Exception e) {
-
             return;
         }
-
     }
 
     private void encodeQRCode() {

@@ -1,21 +1,24 @@
+//
+//  PebbleImageTransmitter.java
+//  WeChatBuddy
+//
+//  Created by Tyler O, Jessie L, Kenneth C on 8/29/15.
+//  Copyright (c) 2015 Tyler O, Jessie L, Kenneth C. All rights reserved.
+
 package com.wechatbuddy.wechatbuddy;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.util.Log;
 
 import com.getpebble.android.kit.PebbleKit;
 import com.getpebble.android.kit.util.PebbleDictionary;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Created by Kenneth on 8/29/2015.
- */
 public class PebbleImageTransmitter {
 
     /* The key used to transmit download data. Contains byte array. */
@@ -28,24 +31,20 @@ public class PebbleImageTransmitter {
     private static final int DL_CHUNK_SIZE = 103;
     /* The key used to request a PBI */
     private static final int DL_URL = 104;
-
-    private static final int MAX_OUTGOING_SIZE = 120;
+    private static final int MAX_OUTGOING_SIZE = 116;
+    private static final UUID PEBBLE_APP_UUID = UUID.fromString("043fe8a1-70df-403b-a7bb-3338db1fa55f");
 
     private Bitmap QRCode;
     private MainActivity delegate;
-    protected List<PebbleDictionary> packages;
-    private int currentIndex;
-    private UUID PEBBLE_APP_UUID = UUID.fromString("043fe8a1-70df-403b-a7bb-3338db1fa55f");
-
+    private List<PebbleDictionary> packages;
 
     public PebbleImageTransmitter(Bitmap bitmap){
         this.QRCode = bitmap;
     }
 
-    public void sendBitmaptoPebble(){
+    public void sendBitmapToPebble(){
 
         packages = new ArrayList<PebbleDictionary>();
-        currentIndex = 0;
 
         makeSmallPackages();
         sendPackages();
@@ -53,50 +52,81 @@ public class PebbleImageTransmitter {
 
     public void setDelegate(MainActivity ma) {
         this.delegate = ma;
-
     }
 
     private void makeSmallPackages(){
 
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        QRCode.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
+        byte[] byteArray = getBytes();
+
+        addDictionaryForType(DL_BEGIN, byteArray.length);
+        addDataDictionaries(byteArray);
+        addDictionaryForType(DL_END, 0);
+    }
+
+    private byte[] getBytes() {
+
+        int width = QRCode.getWidth();
+        int widthWithPadding = 128;
+        int height = QRCode.getHeight();
+
+        byte[] bytes = new byte[(widthWithPadding * height +7) / 8];
+
+        for (int y = 0; y < height; y++) {
+            int offset = y * widthWithPadding;
+            for (int x = 0; x < width; x++) {
+                int pixel = QRCode.getPixel(x, y);
+                if (pixel == Color.WHITE) {
+                    setBitAtIndex(bytes, offset + x);
+                }
+            }
+        }
+        return bytes;
+    }
+
+    private void setBitAtIndex(byte[] byteArray, int index) {
+        int arrayIndex = index / 8;
+        int bitIndex = index % 8;
+        byte original = byteArray[arrayIndex];
+        byte updated = (byte) (original | (byte) (1 << bitIndex));
+        byteArray[arrayIndex] = updated;
+    }
+
+    private void addDictionaryForType(int key, int value) {
+        PebbleDictionary dictionary = new PebbleDictionary();
+        dictionary.addInt32(key, value);
+        packages.add(dictionary);
+    }
+
+    private void addDataDictionaries(byte[] byteArray) {
 
         int length = byteArray.length;
 
-        PebbleDictionary dictionaryStart = new PebbleDictionary();
+        for(int i = 0; i < length; i += MAX_OUTGOING_SIZE){
 
-        dictionaryStart.addInt32(DL_BEGIN, length);
-        packages.add(dictionaryStart);
-
-        for(int i=0; i<length; i+=MAX_OUTGOING_SIZE){
-            byte[] miniByteArr = new byte[MAX_OUTGOING_SIZE];
-            System.out.println(i+MAX_OUTGOING_SIZE);
+            byte[] miniByteArr = new byte[Math.min(MAX_OUTGOING_SIZE, length - i)];
+            System.out.println(i + MAX_OUTGOING_SIZE);
             System.arraycopy(byteArray, i, miniByteArr, 0, Math.min(MAX_OUTGOING_SIZE, length - i));
             PebbleDictionary dataDictionary = new PebbleDictionary();
 
             dataDictionary.addBytes(DL_DATA, miniByteArr);
             packages.add(dataDictionary);
         }
-        PebbleDictionary dictionaryEnd = new PebbleDictionary();
-
-        dictionaryEnd.addInt32(DL_END, 0);
-        packages.add(dictionaryEnd);
     }
 
-    private void sendPackages(){
+    private void sendPackages() {
 
         delegate.willStartTransmitting();
 
-        BroadcastReceiver pebbleImageTransmitter = PebbleKit.registerReceivedAckHandler(delegate, new PebbleKit.PebbleAckReceiver(PEBBLE_APP_UUID) {
+        PebbleKit.registerReceivedAckHandler(delegate, new PebbleKit.PebbleAckReceiver(PEBBLE_APP_UUID) {
 
             @Override
             public void receiveAck(Context context, int transactionId) {
-
                 Log.i("PebbleImageTransmitter", "Received ack for transaction " + transactionId);
                 transactionId++;
-                if (transactionId < packages.size() - 1) {
+                if (transactionId < packages.size()) {
                     PebbleKit.sendDataToPebbleWithTransactionId(context, PEBBLE_APP_UUID, packages.get(transactionId), transactionId);
+                } else if (transactionId == packages.size()) {
+                    context.unregisterReceiver(this);
                 }
             }
         });
@@ -106,11 +136,11 @@ public class PebbleImageTransmitter {
             @Override
             public void receiveNack(Context context, int transactionId) {
                 Log.i("PebbleImageTransmitter", "Received nack for transaction " + transactionId);
+                context.unregisterReceiver(this);
             }
         });
 
         PebbleKit.sendDataToPebbleWithTransactionId(delegate, PEBBLE_APP_UUID, packages.get(0), 0);
-
     }
 
 }

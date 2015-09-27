@@ -1,3 +1,10 @@
+//
+//  WBQRCodeWriter.java
+//  WeChatBuddy
+//
+//  Created by Tyler O on 8/29/15.
+//  Copyright (c) 2015 Tyler O, Jessie L, Kenneth C. All rights reserved.
+
 package com.wechatbuddy.wechatbuddy;
 
 import com.google.zxing.BarcodeFormat;
@@ -11,10 +18,6 @@ import com.google.zxing.qrcode.encoder.Encoder;
 import com.google.zxing.qrcode.encoder.QRCode;
 
 import java.util.Map;
-
-/**
- * Created by tyler on 8/30/15.
- */
 
 public final class WBQRCodeWriter implements Writer {
 
@@ -65,7 +68,7 @@ public final class WBQRCodeWriter implements Writer {
     }
 
     // Note that the input matrix uses 0 == white, 1 == black, while the output matrix uses
-    // 0 == black, 255 == white (i.e. an 8 bit greyscale bitmap).
+    // 0 == black, 255 == white (i.e. an 8 bit grey scale bitmap).
     private static BitMatrix renderResult(QRCode code, int width, int height, int quietZone) {
         ByteMatrix input = code.getMatrix();
         if (input == null) {

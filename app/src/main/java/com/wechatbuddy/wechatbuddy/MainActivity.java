@@ -1,4 +1,10 @@
-//Author: Kenneth Chan
+//
+//  MainActivity.java
+//  WeChatBuddy
+//
+//  Created by Tyler O, Jessie L, Kenneth C on 8/29/15.
+//  Copyright (c) 2015 Tyler O, Jessie L, Kenneth C. All rights reserved.
+//
 
 package com.wechatbuddy.wechatbuddy;
 
@@ -8,7 +14,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +38,7 @@ public class MainActivity extends Activity implements PebbleImageTransmitterDele
         Toast.makeText(this, "delegate works", Toast.LENGTH_SHORT).show();
     }
 
-    public void didTransmitNumberOfPackges(int numberOfPackages, int total){}
+    public void didTransmitNumberOfPackages(int numberOfPackages, int total){}
 
     public void didFailTransmitting(){}
 
@@ -75,14 +80,11 @@ public class MainActivity extends Activity implements PebbleImageTransmitterDele
         }
         this.processImage();
         imageView.setImageBitmap(this.QRCode);
-        //PIT pit = new pit()
-        //pit.sendBtP(this.QRCode);
-        //pit.getResult();
-        //
+
         PebbleImageTransmitter pit = new PebbleImageTransmitter(this.QRCode);
 
         pit.setDelegate(this);
-        pit.sendBitmaptoPebble();
+        pit.sendBitmapToPebble();
 
     }
 
