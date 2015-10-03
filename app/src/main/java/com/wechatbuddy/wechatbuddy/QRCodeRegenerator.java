@@ -3,7 +3,8 @@
 //  WeChatBuddy
 //
 //  Created by Tyler O on 8/29/15.
-//  C
+//  Copyright (c) 2015 Tyler O, Jessie L, Kenneth C. All rights reserved.
+
 package com.wechatbuddy.wechatbuddy;
 
 import android.graphics.Bitmap;

@@ -1,8 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:background="@drawable/main_header_selector">tools:context=".MainActivity">
+    android:background="@drawable/main_header_selector">
+    tools:context=".MainActivity">
 
 
     <TextView
@@ -10,50 +12,59 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/title"
-        android:textColor="#fff"
-        android:textSize="32sp"
+        android:textColor="@color/primary_material_light"
+        android:textSize="36dp"
         android:textStyle="bold"
         android:id="@+id/title"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="54dp" />
+        android:layout_marginTop="50dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/selectText"
-        android:id="@+id/selectText"
+        android:text="@string/promptText"
+        android:id="@+id/promptText"
+        android:textColor="@color/primary_material_light"
+        android:textSize="17dp"
         android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="86dp" />
+        android:layout_marginTop="50dp" />
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="44sp"
         android:text="@string/about"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:id="@+id/about"
-        android:layout_marginBottom="90dp"
-        android:background="@android:color/transparent"
+        android:layout_marginBottom="50dp"
+        android:background="#40ffffff"
+        android:textColor="@color/button_material_light"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignStart="@+id/title"
+        android:layout_alignEnd="@+id/title" />
 
     <ImageView
         android:layout_width="116dp"
         android:layout_height="116dp"
-        android:id="@+id/imageView"
+        android:id="@+id/QRCodeIMG"
+        android:contentDescription="@string/QRCodeIMG"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="LoadQR"
-        android:id="@+id/load"
+        android:layout_width="wrap_content"
+        android:layout_height="44sp"
+        android:text="@string/galleryButton"
+        android:id="@+id/gallery_button"
+        android:background="#40ffffff"
+        android:textColor="@color/button_material_light"
+        android:textSize="17sp"
         android:layout_above="@+id/about"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="26dp"
-        android:background="@android:color/transparent" />
+        android:layout_marginBottom="22dp"
+        android:layout_alignStart="@id/about"
+        android:layout_alignEnd="@+id/about"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
