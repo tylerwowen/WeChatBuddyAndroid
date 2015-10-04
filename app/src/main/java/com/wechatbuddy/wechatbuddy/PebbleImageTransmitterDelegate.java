@@ -9,12 +9,12 @@ package com.wechatbuddy.wechatbuddy;
 
 public interface PebbleImageTransmitterDelegate {
 
-    public void willStartTransmitting();
+    void willStartTransmitting();
 
-    public void didTransmitNumberOfPackages(int numberOfPackages, int total);
+    void didTransmitNumberOfPackages(int numberOfPackages, int total);
 
-    public void didFailTransmitting();
+    void didFailTransmitting();
 
-    public void didFinishTransmitting();
+    void didFinishTransmitting();
 
 }

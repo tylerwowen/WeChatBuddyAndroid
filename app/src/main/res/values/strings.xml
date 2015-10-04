@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QRBuddy for Pebble</string>
+    <string name="app_name">QRBuddy</string>
 
     <string name="title">QR Buddy</string>
     <string name="promptText">Please select a QR code to transfer</string>

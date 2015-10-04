@@ -10,7 +10,6 @@ package com.wechatbuddy.wechatbuddy;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.util.Log;
 
 import com.getpebble.android.kit.PebbleKit;
 import com.getpebble.android.kit.util.PebbleDictionary;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class PebbleImageTransmitter {
+class PebbleImageTransmitter {
 
     /* The key used to transmit download data. Contains byte array. */
     private static final int DL_DATA = 100;
@@ -119,7 +118,7 @@ public class PebbleImageTransmitter {
 
             @Override
             public void receiveAck(Context context, int transactionId) {
-                Log.i("PebbleImageTransmitter", "Received ack for transaction " + transactionId);
+                //Log.i("PebbleImageTransmitter", "Received ack for transaction " + transactionId);
                 transactionId++;
                 if (transactionId < packages.size()) {
                     PebbleKit.sendDataToPebbleWithTransactionId(context, PEBBLE_APP_UUID, packages.get(transactionId), transactionId);
@@ -136,7 +135,7 @@ public class PebbleImageTransmitter {
 
             @Override
             public void receiveNack(Context context, int transactionId) {
-                Log.i("PebbleImageTransmitter", "Received nack for transaction " + transactionId);
+                //Log.i("PebbleImageTransmitter", "Received nack for transaction " + transactionId);
                 context.unregisterReceiver(this);
                 delegate.didFailTransmitting();
             }

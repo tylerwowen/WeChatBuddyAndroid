@@ -68,8 +68,7 @@ public class MainActivity extends Activity implements PebbleImageTransmitterDele
                 return;
             } catch (Exception e) {
 
-                promptText.setText("Oops, unable to find a QR code. \nPlease select an image " +
-                        "that contains a QR code.");
+                promptText.setText("Oops, unable to find a QR code. \nPlease select an image that contains a QR code.");
                 QRCode = null;
             }
         }
@@ -85,8 +84,7 @@ public class MainActivity extends Activity implements PebbleImageTransmitterDele
 
         boolean isConnected = PebbleKit.isWatchConnected(this);
         if (!isConnected) {
-            promptText.setText("Your Pebble is not connected. Please connect it to your " +
-                    "phone and try again.");
+            promptText.setText("Your Pebble is not connected. Please connect it to your phone and try again.");
             return;
         }
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
