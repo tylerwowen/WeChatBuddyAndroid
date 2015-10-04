@@ -5,6 +5,7 @@
     <string name="promptText">Please select a QR code to transfer</string>
     <string name="about">About this app</string>
     <string name="galleryButton">Gallery</string>
+    <string name="getPBAppButton">Get Pebble WatchApp</string>
     <string name="QRCodeIMG">QRCode</string>
     <string name="title_activity_about_app">About App</string>
 </resources>

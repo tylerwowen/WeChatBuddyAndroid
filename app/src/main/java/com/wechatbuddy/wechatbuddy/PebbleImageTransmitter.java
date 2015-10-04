@@ -28,10 +28,8 @@ public class PebbleImageTransmitter {
     /* The key used to finalize an image transmission. Data not defined. */
     private static final int DL_END = 102;
     /* The key used to tell the JS how big chunks should be */
-    private static final int DL_CHUNK_SIZE = 103;
-    /* The key used to request a PBI */
-    private static final int DL_URL = 104;
-    private static final int MAX_OUTGOING_SIZE = 116;
+    private static final int DL_CHUNK_SIZE = 116;
+
     private static final UUID PEBBLE_APP_UUID = UUID.fromString("043fe8a1-70df-403b-a7bb-3338db1fa55f");
 
     private Bitmap QRCode;
@@ -101,11 +99,11 @@ public class PebbleImageTransmitter {
 
         int length = byteArray.length;
 
-        for(int i = 0; i < length; i += MAX_OUTGOING_SIZE){
+        for(int i = 0; i < length; i += DL_CHUNK_SIZE){
 
-            byte[] miniByteArr = new byte[Math.min(MAX_OUTGOING_SIZE, length - i)];
-            System.out.println(i + MAX_OUTGOING_SIZE);
-            System.arraycopy(byteArray, i, miniByteArr, 0, Math.min(MAX_OUTGOING_SIZE, length - i));
+            byte[] miniByteArr = new byte[Math.min(DL_CHUNK_SIZE, length - i)];
+            System.out.println(i + DL_CHUNK_SIZE);
+            System.arraycopy(byteArray, i, miniByteArr, 0, Math.min(DL_CHUNK_SIZE, length - i));
             PebbleDictionary dataDictionary = new PebbleDictionary();
 
             dataDictionary.addBytes(DL_DATA, miniByteArr);
@@ -125,9 +123,12 @@ public class PebbleImageTransmitter {
                 transactionId++;
                 if (transactionId < packages.size()) {
                     PebbleKit.sendDataToPebbleWithTransactionId(context, PEBBLE_APP_UUID, packages.get(transactionId), transactionId);
+                    delegate.didTransmitNumberOfPackages(transactionId, packages.size());
                 } else if (transactionId == packages.size()) {
                     context.unregisterReceiver(this);
+                    delegate.didFinishTransmitting();
                 }
+
             }
         });
 
@@ -137,6 +138,7 @@ public class PebbleImageTransmitter {
             public void receiveNack(Context context, int transactionId) {
                 Log.i("PebbleImageTransmitter", "Received nack for transaction " + transactionId);
                 context.unregisterReceiver(this);
+                delegate.didFailTransmitting();
             }
         });
 

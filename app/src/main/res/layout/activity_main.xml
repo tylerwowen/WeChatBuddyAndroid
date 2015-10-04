@@ -13,7 +13,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/title"
         android:textColor="@color/primary_material_light"
-        android:textSize="36dp"
+        android:textSize="36sp"
         android:textStyle="bold"
         android:id="@+id/title"
         android:layout_alignParentTop="true"
@@ -27,10 +27,13 @@
         android:text="@string/promptText"
         android:id="@+id/promptText"
         android:textColor="@color/primary_material_light"
-        android:textSize="17dp"
+        android:textSize="17sp"
         android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="33dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_horizontal" />
 
     <Button
         android:layout_width="wrap_content"
@@ -38,7 +41,7 @@
         android:text="@string/about"
         android:textSize="17sp"
         android:id="@+id/about"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="44dp"
         android:background="#40ffffff"
         android:textColor="#ffffff"
         android:layout_alignParentBottom="true"
@@ -62,11 +65,25 @@
         android:background="#40ffffff"
         android:textColor="#ffffff"
         android:textSize="17sp"
-        android:layout_above="@+id/about"
+        android:onClick="openGallery"
         android:layout_marginBottom="22dp"
-        android:layout_alignStart="@id/about"
-        android:layout_alignEnd="@+id/about"
-        android:layout_centerHorizontal="true"
-        android:onClick="openGallery" />
+        android:layout_above="@+id/about"
+        android:layout_alignStart="@+id/about"
+        android:layout_alignEnd="@+id/about" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="5dp"
+        android:id="@+id/transmittingProgressBar"
+        android:indeterminate="false"
+        android:max="100"
+        android:layout_below="@+id/QRCodeIMG"
+        android:layout_marginTop="22dp"
+        android:layout_alignEnd="@+id/gallery_button"
+        android:layout_alignStart="@+id/gallery_button"
+        android:progress="0"
+        android:visibility="invisible"
+        android:focusableInTouchMode="false" />
 
 </RelativeLayout>

@@ -12,7 +12,10 @@ import android.graphics.Color;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
+import com.google.zxing.ChecksumException;
+import com.google.zxing.FormatException;
 import com.google.zxing.LuminanceSource;
+import com.google.zxing.NotFoundException;
 import com.google.zxing.RGBLuminanceSource;
 import com.google.zxing.Result;
 import com.google.zxing.WriterException;
@@ -24,7 +27,8 @@ public class QRCodeRegenerator {
     private Bitmap image = null;          //UIImage *image
     private String data = null;           //NSString *data
 
-    public Bitmap regenerateQRCodeWithBitmap(Bitmap inputIMG) {
+    public Bitmap regenerateQRCodeWithBitmap(Bitmap inputIMG) throws Exception {
+
         this.image = inputIMG;
         this.decodeOriginalImage();
         this.encodeQRCode();
@@ -32,7 +36,7 @@ public class QRCodeRegenerator {
         return this.image;
     }
 
-    private void decodeOriginalImage() {
+    private void decodeOriginalImage() throws Exception {
 
         int[] intArray = new int[image.getWidth()*image.getHeight()];
         //copy pixel data from the Bitmap into the 'intArray' array
@@ -42,13 +46,9 @@ public class QRCodeRegenerator {
         BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
         QRCodeReader reader = new QRCodeReader();
 
-        try {
-            Result result = reader.decode(bitmap);
-            this.data = result.getText();
-        }
-        catch(Exception e) {
-            return;
-        }
+        Result result = reader.decode(bitmap);
+        this.data = result.getText();
+
     }
 
     private void encodeQRCode() {
