@@ -12,6 +12,7 @@ import android.graphics.Color;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
+import com.google.zxing.EncodeHintType;
 import com.google.zxing.LuminanceSource;
 import com.google.zxing.RGBLuminanceSource;
 import com.google.zxing.Result;
@@ -19,6 +20,10 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
+
+import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
 
 class QRCodeRegenerator {
     private Bitmap image = null;          //UIImage *image
@@ -44,8 +49,7 @@ class QRCodeRegenerator {
         QRCodeReader reader = new QRCodeReader();
 
         Result result = reader.decode(bitmap);
-        this.data = result.getText();
-
+        this.data = new String(result.getText().getBytes(),"ISO-8859-1");
     }
 
     private void encodeQRCode() {
